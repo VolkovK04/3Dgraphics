@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _3Dgraphics
 {
-    class Triangle:Polygon
+    class Triangle : Polygon
     {
         public Triangle()
         {

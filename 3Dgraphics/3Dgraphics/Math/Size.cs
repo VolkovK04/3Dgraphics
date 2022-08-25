@@ -4,6 +4,14 @@ namespace _3Dgraphics
 {
     public struct Size
     {
+        public int Width { get; set; }
+        public int Height { get; set; }
+        public Size(int width, int height)
+        {
+            Width = width;
+            Height = height;
+        }
+
         public static implicit operator System.Drawing.Size(Size size)
         {
             return new System.Drawing.Size(size.Width, size.Height);
@@ -17,13 +25,5 @@ namespace _3Dgraphics
         {
             return new Bitmap(size.Width, size.Height);
         }
-
-        public Size(int Width, int Height)
-        {
-            this.Width = Width;
-            this.Height = Height;
-        }
-        public int Width { get; set; }
-        public int Height { get; set; }
     }
 }
