@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace _3Dgraphics
 {
-    class Object3
+    public class Object3
     {
         public Polygon[] Faces { get; protected set; }
-
     }
 }

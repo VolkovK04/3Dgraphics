@@ -1,12 +1,12 @@
 ﻿namespace _3Dgraphics
 {
-    class IdGenerator
+    public class IdGenerator
     {
-        private int IdCount = 0;
+        private int idCount = 0;
         public int SetId()
         {
-            IdCount++;
-            return IdCount;
+            idCount++;
+            return idCount;
         }
     }
 }

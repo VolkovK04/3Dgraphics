@@ -1,4 +1,6 @@
-﻿namespace _3Dgraphics
+﻿using System.Windows.Forms;
+
+namespace _3Dgraphics
 {
     partial class Form1
     {
@@ -52,6 +54,17 @@
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+
+            this.KeyDown += Form1_KeyDown;
+            this.KeyUp += Form1_KeyUp;
+            this.MouseWheel += Form1_MouseWheel;
+
+            Timer timer = new Timer()
+            {
+                Interval = 100,
+                Enabled = true
+            };
+            timer.Tick += Timer_Tick;
 
         }
 
