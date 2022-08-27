@@ -8,3 +8,14 @@ C:\Users\User\source\repos\3Dgraphics\3Dgraphics\obj\Debug\3Dgraphics.csproj.Cor
 C:\Users\User\source\repos\3Dgraphics\3Dgraphics\obj\Debug\3Dgraphics.exe
 C:\Users\User\source\repos\3Dgraphics\3Dgraphics\obj\Debug\3Dgraphics.pdb
 C:\Users\User\source\repos\3Dgraphics\3Dgraphics\obj\Debug\_3Dgraphics.Form1.resources
+C:\Users\volkov\Source\Repos\3Dgraphics\3Dgraphics\3Dgraphics\bin\Debug\3Dgraphics.exe.config
+C:\Users\volkov\Source\Repos\3Dgraphics\3Dgraphics\3Dgraphics\bin\Debug\3Dgraphics.exe
+C:\Users\volkov\Source\Repos\3Dgraphics\3Dgraphics\3Dgraphics\bin\Debug\3Dgraphics.pdb
+C:\Users\volkov\Source\Repos\3Dgraphics\3Dgraphics\3Dgraphics\obj\Debug\3Dgraphics.csproj.AssemblyReference.cache
+C:\Users\volkov\Source\Repos\3Dgraphics\3Dgraphics\3Dgraphics\obj\Debug\3Dgraphics.csproj.SuggestedBindingRedirects.cache
+C:\Users\volkov\Source\Repos\3Dgraphics\3Dgraphics\3Dgraphics\obj\Debug\_3Dgraphics.Form1.resources
+C:\Users\volkov\Source\Repos\3Dgraphics\3Dgraphics\3Dgraphics\obj\Debug\_3Dgraphics.Properties.Resources.resources
+C:\Users\volkov\Source\Repos\3Dgraphics\3Dgraphics\3Dgraphics\obj\Debug\3Dgraphics.csproj.GenerateResource.cache
+C:\Users\volkov\Source\Repos\3Dgraphics\3Dgraphics\3Dgraphics\obj\Debug\3Dgraphics.csproj.CoreCompileInputs.cache
+C:\Users\volkov\Source\Repos\3Dgraphics\3Dgraphics\3Dgraphics\obj\Debug\3Dgraphics.exe
+C:\Users\volkov\Source\Repos\3Dgraphics\3Dgraphics\3Dgraphics\obj\Debug\3Dgraphics.pdb

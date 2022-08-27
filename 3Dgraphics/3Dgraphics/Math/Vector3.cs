@@ -35,20 +35,25 @@ namespace _3Dgraphics
 
             return v1;
         }
-        public double GetMagnitude()
+        public double GetSquareLength()
+        {
+            return X * X + Y * Y + Z * Z;
+        }
+
+        public double GetLength()
         {
             return Math.Sqrt(X*X+Y*Y+Z*Z);
         }
 
         public void MaxMod(double maxMod)
         {
-            this = Math.Min(maxMod, GetMagnitude()) * Normalized(); //жесть
+            this = Math.Min(maxMod, GetLength()) * Normalized(); //жесть
         }
         public Vector3 Normalized()
         {
-            if (GetMagnitude() == 0)
+            if (GetLength() == 0)
                 return new Vector3(); //undefined
-            return this / GetMagnitude();
+            return this / GetLength();
         }
 
         static public Vector3 operator +(Vector3 v1, Vector3 v2)

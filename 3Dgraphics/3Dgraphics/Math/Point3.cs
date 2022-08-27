@@ -14,10 +14,26 @@ namespace _3Dgraphics
             Y = y;
             Z = z;
         }
+        public double GetSquareDistance(Point3 p2)
+        {
+            return (p2 - this).GetLength();
+        }
+
         public double GetDistance(Point3 p2)
         {
-            return (p2 - this).GetMagnitude();
+            return (p2 - this).GetLength();
         }
+
+        public double GetSquareDistance(Polygon polygon)
+        {
+            double r = 0;
+            for (int i = 0; i < polygon.Points.Length; i++)
+            {
+                r += GetSquareDistance(polygon.Points[i]);
+            }
+            return r / polygon.Points.Length;
+        }
+
         public double GetDistance(Polygon polygon)
         {
             double r = 0;

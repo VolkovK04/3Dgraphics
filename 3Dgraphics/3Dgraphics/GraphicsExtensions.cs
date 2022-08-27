@@ -8,7 +8,7 @@ namespace _3Dgraphics
     public static class GraphicsExtensions
     {
         private static readonly Comparison<Polygon> PolygonComparison = 
-            (Polygon p1, Polygon p2) => (int)(Camera.Position.GetDistance(p2) - Camera.Position.GetDistance(p1));
+            (Polygon p1, Polygon p2) => (int)(Camera.Position.GetSquareDistance(p2) - Camera.Position.GetSquareDistance(p1));
 
         public static void Draw3DPolygon(this Graphics graphics, Polygon polygon)
         {
@@ -22,7 +22,7 @@ namespace _3Dgraphics
             if (points.Count < 2)
                 return;
 
-            graphics.FillPolygon(new SolidBrush(polygon.Color), points.ToArray());
+            //graphics.FillPolygon(new SolidBrush(polygon.Color), points.ToArray());
             graphics.DrawPolygon(new Pen(Color.Black), points.ToArray());
         }
         

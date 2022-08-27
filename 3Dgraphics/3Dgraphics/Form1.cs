@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace _3Dgraphics
@@ -14,9 +10,13 @@ namespace _3Dgraphics
     {
         private const int CUBE_SIZE = 10;
 
-        private bool escapePressed = false;
+        private double cameraSpeed = 5;
+        private bool cursorVisible = true;
         private List<Keys> pressedKeys = new List<Keys>();
+        private double mouseSensitive = 1;
+        private double wheelSensitive = 1;
 
+        private bool antiAliasing = true;
         private Bitmap image;
         private Graphics graphics;
         private Scene scene = new Scene();
@@ -26,11 +26,9 @@ namespace _3Dgraphics
         {
             InitializeComponent();
 
-            Camera.SetScreenSize(pictureBox1.Size);
-
             for (int i=0; i<10; i++)
             {
-                for (int j=0; j<1; j++)
+                for (int j=0; j<10; j++)
                 {
                     for (int k=0; k<10; k++)
                     {
@@ -40,23 +38,32 @@ namespace _3Dgraphics
                 }
             }
 
-
-            image = (Bitmap)Camera.ScreenSize;
-            graphics = Graphics.FromImage(image);
-            graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            SetImageSize(pictureBox.Size);
 
             graphics.DrawScene(scene);
-            pictureBox1.Image = image;
+            pictureBox.Image = image;
+
+            cursorVisible = false;
+            Cursor.Hide();
+        }
+        private void SetImageSize(Size size)
+        {
+            Camera.SetScreenSize(size);
+            image = (Bitmap)size;
+            graphics = Graphics.FromImage(image);
+            if (antiAliasing)
+                graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
         }
 
         private void Form1_MouseWheel(object sender, MouseEventArgs e)
         {
-            Camera.SetFov(Camera.FieldOfView * Math.Exp(e.Delta / 120.0 / 100)); //magic numbers
+            Camera.SetFov(Camera.FieldOfView * Math.Exp(e.Delta / 120.0 * wheelSensitive / 100)); 
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            double speed = 5;
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
             Vector3 velosity = new Vector3();
             if (pressedKeys.Contains(Keys.W))
                 velosity += new Vector3(0, 0, 1);
@@ -70,18 +77,21 @@ namespace _3Dgraphics
                 velosity += new Vector3(0, 1, 0);
             if (pressedKeys.Contains(Keys.Down))
                 velosity += new Vector3(0, -1, 0);
-            Camera.Move(velosity.Normalized()*speed);
+            Camera.Move(velosity.Normalized()*cameraSpeed);
 
-            if (!escapePressed)
+            if (!cursorVisible)
             {
-                cursorCenter = new Point2(pictureBox1.Width / 2 + Location.X + 8, pictureBox1.Height / 2 + Location.Y + 32);
-                Cursor.Hide();
-                Camera.Rotate(Cursor.Position - cursorCenter);
+                cursorCenter = new Point2(pictureBox.Width / 2 + Location.X + 8, pictureBox.Height / 2 + Location.Y + 32);
+                Camera.Rotate((Cursor.Position - cursorCenter) * mouseSensitive);
                 Cursor.Position = cursorCenter;
             }
 
             graphics.DrawScene(scene);
-            pictureBox1.Image = image;
+            pictureBox.Image = image;
+
+            stopwatch.Stop();
+            label1.Text = $"FPS: {Math.Round(1000.0/stopwatch.ElapsedMilliseconds, 2).ToString()}";
+
         }
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -94,7 +104,17 @@ namespace _3Dgraphics
             pressedKeys.Remove(e.KeyCode);
 
             if (e.KeyCode == Keys.Escape)
-                escapePressed = !escapePressed;
+            {
+                cursorVisible = !cursorVisible;
+                if (cursorVisible)
+                    Cursor.Show();
+                else
+                    Cursor.Hide();
+            }
+        }
+        private void PictureBox1_SizeChanged(object sender, EventArgs e)
+        {
+            SetImageSize(pictureBox.Size);
         }
     }
 }
