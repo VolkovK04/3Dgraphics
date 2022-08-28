@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
-
+using System.Threading;
 namespace _3Dgraphics
 {
     public partial class Form1 : Form
     {
         private const int CUBE_SIZE = 10;
 
-        private double cameraSpeed = 5;
+        private float cameraSpeed = 5;
         private bool cursorVisible = true;
         private List<Keys> pressedKeys = new List<Keys>();
         private double mouseSensitive = 1;
         private double wheelSensitive = 1;
 
-        private bool antiAliasing = true;
+        private bool antiAliasing = false;
         private Bitmap image;
         private Graphics graphics;
         private Scene scene = new Scene();
@@ -32,7 +32,7 @@ namespace _3Dgraphics
                 {
                     for (int k=0; k<10; k++)
                     {
-                        Cube cube = new Cube(new Point3(CUBE_SIZE * i, CUBE_SIZE * j, 50+ CUBE_SIZE * k), CUBE_SIZE);
+                        Cube cube = new Cube(new Point3(CUBE_SIZE * i, CUBE_SIZE * j, 50+ CUBE_SIZE * k), CUBE_SIZE*5/10);
                         scene.Objects.Add(cube);
                     }
                 }

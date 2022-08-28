@@ -4,51 +4,58 @@ namespace _3Dgraphics
 {
     public struct Vector3
     {
-        public double X { get; set; }
-        public double Y { get; set; }
-        public double Z { get; set; }
+        public enum Axis { X, Y, Z }
 
-        public Vector3(double X, double Y, double Z)
+        public float X { get; set; }
+        public float Y { get; set; }
+        public float Z { get; set; }
+
+        public Vector3(float X, float Y, float Z)
         {
             this.X = X;
             this.Y = Y;
             this.Z = Z;
         }
 
-        public Vector3 Rotate(double fi, double teta)
+        public void Rotate(float fi, float teta)
         {
-            Vector3 v1 = new Vector3();
-
-            double sin = Math.Sin(fi);
-            double cos = Math.Cos(fi);
-            v1.X = X * cos + Z * sin;
-            v1.Z = Z * cos - X * sin;
-            v1.Y = Y;
-
-            this = v1; //жесть
-
-            sin = Math.Sin(teta);
-            cos = Math.Cos(teta);
-            v1.X = X;
-            v1.Y = Y * cos - Z * sin;
-            v1.Z = Z * cos + Y * sin;
-
-            return v1;
+            RotateAxis(fi, Axis.Y);
+            RotateAxis(teta, Axis.X);
         }
-        public double GetSquareLength()
+        public void RotateAxis(float angle, Axis axis)
+        {
+            float sin = (float)Math.Sin(angle);
+            float cos = (float)Math.Cos(angle);
+            float a;
+            switch (axis)
+            {
+                case Axis.X:
+                    a = Y;
+                    Y = Y * cos - Z * sin;
+                    Z = Z * cos + a * sin;
+                    break;
+                case Axis.Y:
+                    a = X;
+                    X = X * cos + Z * sin;
+                    Z = Z * cos - a * sin;
+                    break;
+                case Axis.Z:
+                    a = X;
+                    X = X * cos - Y * sin;
+                    Y = Y * cos + a * sin;
+                    break;
+            }
+        }
+        public float GetSquareLength()
         {
             return X * X + Y * Y + Z * Z;
         }
 
-        public double GetLength()
+        public float GetLength()
         {
-            return Math.Sqrt(X*X+Y*Y+Z*Z);
+            return (float)Math.Sqrt(X * X + Y * Y + Z * Z);
         }
 
-        public void MaxMod(double maxMod)
-        {
-            this = Math.Min(maxMod, GetLength()) * Normalized(); //жесть
-        }
         public Vector3 Normalized()
         {
             if (GetLength() == 0)
@@ -64,15 +71,15 @@ namespace _3Dgraphics
         {
             return new Vector3(v1.X - v2.X, v1.Y - v2.Y, v1.Z + v2.Z);
         }
-        static public Vector3 operator *(Vector3 v, double k)
+        static public Vector3 operator *(Vector3 v, float k)
         {
             return new Vector3(v.X * k, v.Y * k, v.Z * k);
         }
-        static public Vector3 operator *(double k, Vector3 v)
+        static public Vector3 operator *(float k, Vector3 v)
         {
             return new Vector3(v.X * k, v.Y * k, v.Z * k);
         }
-        static public Vector3 operator /(Vector3 v, double k)
+        static public Vector3 operator /(Vector3 v, float k)
         {
             return new Vector3(v.X / k, v.Y / k, v.Z / k);
         }

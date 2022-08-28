@@ -2,18 +2,24 @@
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace _3Dgraphics
 {
     public static class GraphicsExtensions
     {
-        private static readonly Comparison<Polygon> PolygonComparison = 
-            (Polygon p1, Polygon p2) => (int)(Camera.Position.GetSquareDistance(p2) - Camera.Position.GetSquareDistance(p1));
+        private static readonly Comparison<Polygon> PolygonComparison =
+            (Polygon p1, Polygon p2) => (int)(p2.DistanseToCamera - p1.DistanseToCamera);
+        public static void PolygonsSort(List<Polygon> polygons)
+        {
+            Parallel.ForEach(polygons, p => p.CalculateDistanse());
+            polygons.Sort(PolygonComparison);
+        }
 
         public static void Draw3DPolygon(this Graphics graphics, Polygon polygon)
         {
             List<Point> points = new List<Point>();
-            for (int i=0; i< polygon.Points.Length; i++)
+            for (int i = 0; i < polygon.Points.Length; i++)
             {
                 Point point = Camera.ToScrean(polygon.Points[i], out bool inScrean);
                 if (inScrean)
@@ -22,13 +28,13 @@ namespace _3Dgraphics
             if (points.Count < 2)
                 return;
 
-            //graphics.FillPolygon(new SolidBrush(polygon.Color), points.ToArray());
+            graphics.FillPolygon(new SolidBrush(polygon.Color), points.ToArray());
             graphics.DrawPolygon(new Pen(Color.Black), points.ToArray());
         }
-        
+
         public static void Draw3DPolygons(this Graphics graphics, List<Polygon> polygons)
         {
-            polygons.Sort(PolygonComparison);
+            PolygonsSort(polygons);
             foreach (Polygon polygon in polygons)
             {
                 graphics.Draw3DPolygon(polygon);

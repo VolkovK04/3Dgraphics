@@ -3,9 +3,9 @@
     class Cube : Object3
     {
         public Point3 Position { get; set; }
-        public double Size { get; set; }
+        public float Size { get; set; }
 
-        public Cube(Point3 position, double size=10)
+        public Cube(Point3 position, float size=10)
         {
             Position = position;
             Size = size;
